@@ -1,0 +1,2 @@
+# linear-equations
+School project
