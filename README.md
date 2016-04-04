@@ -20,7 +20,7 @@ nalezy zdefiniowc klase wektor oraz przeciazenia odpowiednich metod. Definicje
 nalezy wpisac w odpowiednim module dostarczonego zalacznika.
   * Ocena realizacji wstepnej fazy zadania
 
-##3 Opis zadania programowego:
+##3. Opis zadania programowego:
 Nalezy napisacprogram, który umoozliwia rozwiazanie ukladu równan liniowych z trzema niewiadomymi.
 Taki uklad rownan wygodnie jest reprezentowac w postaci macierzowej jako
 ```
@@ -35,3 +35,5 @@ Ax = b
 ```
 gdzie **A** – to macierz współczynników równania, **x** – wektor nieznanych wartosci, ktore 
 nalezy wyliczyc, **b** – wektor wyrazow wolnych.
+
+wincyj mi sie nie chce pisac, srr.
