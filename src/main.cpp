@@ -20,6 +20,9 @@ int main()
   cout << endl << " Start programu " << endl << endl;
   //UkladRownanLiniowych   UklRown;   // To tylko przykladowe definicje zmiennej
   Wektor w1, w2, w3;
+  Macierz macierz;
+  Wektor tab[ROZMIAR];
+  int i;
   cout << "Podaj " << ROZMIAR << " danych do 1. wektora (oddziel spacja!): " << endl;
   cin >> w1;
   cout << "Podaj " << ROZMIAR << " danych do 2. wektora (oddziel spacja!): " << endl;
@@ -42,6 +45,17 @@ int main()
 
 
   cout << "Iloczyn skalarny: " << (w1 * w2) << endl;
+
+// _____________________________________________________
+  cout << "\nWCZYTANIE MACIERZY############" << endl;
+
+  for (i = 0; i < ROZMIAR; i++) {
+      cout << "Podaj " << ROZMIAR << " danych do " << i << ". wektora (oddziel spacja!): " << endl;
+      cin >> tab[i];
+  }
+
+  macierz.setDane(tab);
+  cout << macierz;
 
 
 
