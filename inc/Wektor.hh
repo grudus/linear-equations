@@ -10,25 +10,25 @@
  *  i jakie ma glowne cechy.
  */
 class Wektor {
-  /*
-   *  Tutaj trzeba wstawic definicje odpowiednich pol i metod prywatnych
-   */
-  RODZAJ_DANYCH dane[ROZMIAR];
+  private: RODZAJ_DANYCH dane[ROZMIAR];
   public:
-  /*
-   *  Tutaj trzeba wstawic definicje odpowiednich metod publicznych
-   */
-   Wektor(RODZAJ_DANYCH d1 = 0, RODZAJ_DANYCH d2 = 0, RODZAJ_DANYCH d3= 0) {
-        dane[0] = d1;
-        dane[1] = d2;
-        dane[2] = d3;
+  //Konstruktor domyslny wypelnia wszystko zerami.
+   Wektor() {
+        int i;
+        for (i = 0; i < ROZMIAR; i++) dane[i] = 0;
+   }
+   //Konstruktor dla zadanych danych poczatkowych wektora przekazanych jako tablica
+   Wektor(RODZAJ_DANYCH* danePoczatkowe) {
+        int i;
+        for (i = 0; i < ROZMIAR; i++) dane[i] = danePoczatkowe[i];
    }
    Wektor dodaj(Wektor);
    Wektor odejmij(Wektor);
    RODZAJ_DANYCH iloczynSkalarny(Wektor);
    Wektor pomnoz(RODZAJ_DANYCH);
    Wektor podziel(RODZAJ_DANYCH);
-   void setDane(RODZAJ_DANYCH, RODZAJ_DANYCH, RODZAJ_DANYCH);
+   void setDane(const unsigned int, ...);
+   void setDane(RODZAJ_DANYCH*);
    RODZAJ_DANYCH operator[] (unsigned int);
 
 };

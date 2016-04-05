@@ -20,9 +20,9 @@ int main()
   cout << endl << " Start programu " << endl << endl;
   //UkladRownanLiniowych   UklRown;   // To tylko przykladowe definicje zmiennej
   Wektor w1, w2, w3;
-  cout << "Podaj dane do 1. wektora: " << endl;
+  cout << "Podaj " << ROZMIAR << " danych do 1. wektora (oddziel spacja!): " << endl;
   cin >> w1;
-  cout << "Podaj dane do 2. wektora: " << endl;
+  cout << "Podaj " << ROZMIAR << " danych do 2. wektora (oddziel spacja!): " << endl;
   cin >> w2;
 
   cout << w1 << endl;
