@@ -1,1 +1,0 @@
-g++ -pedantic -Wall -std=c++11 -o program main.cpp Macierz.cpp UkladRownanLiniowych.cpp Wektor.cpp
