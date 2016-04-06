@@ -20,7 +20,6 @@ class Macierz {
 
   void setDane(Wektor*);
   const Wektor operator[](const unsigned int) const;
-  Wektor& operator[] (const unsigned int i) {return tablica[i];}
    
   const RODZAJ_DANYCH operator() (const unsigned int x, const unsigned int y) const {
 	return tablica[y][x];

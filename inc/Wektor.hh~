@@ -17,7 +17,11 @@ class Wektor {
         int i;
         for (i = 0; i < ROZMIAR; i++) dane[i] = 0;
    }
-
+   //Konstruktor dla zadanych danych poczatkowych wektora przekazanych jako tablica
+   Wektor(RODZAJ_DANYCH* danePoczatkowe) {
+        int i;
+        for (i = 0; i < ROZMIAR; i++) dane[i] = danePoczatkowe[i];
+   }
    Wektor dodaj(Wektor);
    Wektor odejmij(Wektor);
    RODZAJ_DANYCH iloczynSkalarny(Wektor);

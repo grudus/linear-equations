@@ -16,6 +16,14 @@ const Wektor Macierz::operator[](const unsigned int i) const {
     return tablica[i];
 }
 
+const RODZAJ_DANYCH Macierz::operator() (const unsigned int x, const unsigned int y) const {
+	/*if (x > ROZMIAR-1 || y > ROZMIAR-1) {
+        std::cerr << "\n###IndexOutOfBoundsException\n" << std::endl;
+        return 0;
+	}
+	else */return tablica[y][x];
+
+} 
 
 std::ostream& operator << (std::ostream& stream, Macierz& macierz) {
     unsigned int j;
