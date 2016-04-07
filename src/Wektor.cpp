@@ -1,21 +1,9 @@
 #include "Wektor.hh"
- #include <cstdarg>
 
-void Wektor::setDane(const unsigned int rozmiar, ...) {
-    va_list ap;
-    unsigned int i;
-    va_start(ap, rozmiar);
-    for (i = 0; i < rozmiar; i++) {
-        dane[i] = va_arg(ap,RODZAJ_DANYCH);
-    }
-    va_end(ap);
-}
-
-void Wektor::setDane(RODZAJ_DANYCH* tablica) {
-    int i;
-    for (i = 0; i < ROZMIAR; i++) {
-        dane[i] = tablica[i];
-    }
+void Wektor::zamienMiejscami(const unsigned int i, const unsigned int j) {
+    RODZAJ_DANYCH temp = dane[i];
+    dane[i] = dane[j];
+    dane[j] = temp;
 }
 
 const RODZAJ_DANYCH Wektor::operator[](const unsigned int i) const {
@@ -35,28 +23,28 @@ RODZAJ_DANYCH& Wektor::operator[] (const unsigned int i) {
 }
 
 
-Wektor Wektor::dodaj(Wektor wektor) {
+Wektor Wektor::dodaj(const Wektor wektor) {
     Wektor koncowy;
     int i;
     for (i = 0; i < ROZMIAR; i++) koncowy[i] = dane[i] + wektor[i];
     return koncowy;
 }
 
-Wektor Wektor::odejmij(Wektor wektor) {
+Wektor Wektor::odejmij(const Wektor wektor) {
     Wektor koncowy;
     int i;
     for (i = 0; i < ROZMIAR; i++) koncowy[i] = dane[i] - wektor[i];
     return koncowy;
 }
 
-Wektor Wektor::pomnoz(RODZAJ_DANYCH d) {
+Wektor Wektor::pomnoz(const RODZAJ_DANYCH d) {
     Wektor koncowy;
     int i;
     for (i = 0; i < ROZMIAR; i++) koncowy[i] = dane[i] * d;
     return koncowy;
 }
 
-Wektor Wektor::podziel(RODZAJ_DANYCH d) {
+Wektor Wektor::podziel(const RODZAJ_DANYCH d) {
     Wektor koncowy;
     int i;
 
@@ -68,7 +56,7 @@ Wektor Wektor::podziel(RODZAJ_DANYCH d) {
     return koncowy;
 }
 
-RODZAJ_DANYCH Wektor::iloczynSkalarny(Wektor w) {
+RODZAJ_DANYCH Wektor::iloczynSkalarny(const Wektor w) {
     RODZAJ_DANYCH iloczyn = 0;
     int i;
     for (i = 0; i < ROZMIAR; i++) {
@@ -76,6 +64,16 @@ RODZAJ_DANYCH Wektor::iloczynSkalarny(Wektor w) {
     }
     return iloczyn;
 }
+
+Wektor Wektor::kopia() {
+    Wektor doZwrotu;
+    int i;
+    for (i = 0; i < ROZMIAR; i++) {
+        doZwrotu[i] = dane[i];
+    }
+    return doZwrotu;
+}
+
 
 std::istream& operator >> (std::istream& stream, Wektor& wek) {
     int i;
@@ -85,7 +83,7 @@ std::istream& operator >> (std::istream& stream, Wektor& wek) {
     return stream;
  }
 
-std::ostream& operator << (std::ostream& stream, /*const*/ Wektor& wek) {
+std::ostream& operator << (std::ostream& stream, const Wektor& wek) {
     int i;
     stream << "[";
     for (i = 0; i < ROZMIAR; i++) {

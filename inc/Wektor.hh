@@ -5,10 +5,6 @@
 #include <iostream>
 
 
-/*
- *  Tutaj trzeba opisac klase. Jakie pojecie modeluje ta klasa
- *  i jakie ma glowne cechy.
- */
 class Wektor {
   private: RODZAJ_DANYCH dane[ROZMIAR];
   public:
@@ -18,38 +14,24 @@ class Wektor {
         for (i = 0; i < ROZMIAR; i++) dane[i] = 0;
    }
 
-   Wektor dodaj(Wektor);
-   Wektor odejmij(Wektor);
-   RODZAJ_DANYCH iloczynSkalarny(Wektor);
-   Wektor pomnoz(RODZAJ_DANYCH);
-   Wektor podziel(RODZAJ_DANYCH);
-   void setDane(const unsigned int, ...);
-   void setDane(RODZAJ_DANYCH*);
+   Wektor dodaj(const Wektor);
+   Wektor odejmij(const Wektor);
+   RODZAJ_DANYCH iloczynSkalarny(const Wektor);
+   Wektor pomnoz(const RODZAJ_DANYCH);
+   Wektor podziel(const RODZAJ_DANYCH);
+   void zamienMiejscami(const unsigned int, const unsigned int);
    const RODZAJ_DANYCH operator[] (const unsigned int) const;
    RODZAJ_DANYCH& operator[] (const unsigned int);
-   
+   Wektor kopia();
+
+
 
 };
 
 
-/*
- * To przeciazenie trzeba opisac. Co ono robi. Jaki format
- * danych akceptuje. Jakie jest znaczenie parametrow itd.
- * Szczegoly dotyczace zalecen realizacji opisow mozna
- * znalezc w pliku:
- *    ~bk/edu/kpo/zalecenia.txt
- */
+/* ***** Przeciazenia operatorow ****** */
 std::istream& operator >> (std::istream&, Wektor&);
-
-/*
- * To przeciazenie trzeba opisac. Co ono robi. Jaki format
- * danych akceptuje. Jakie jest znaczenie parametrow itd.
- * Szczegoly dotyczace zalecen realizacji opisow mozna
- * znalezc w pliku:
- *    ~bk/edu/kpo/zalecenia.txt
- */
-std::ostream& operator << (std::ostream&, /*const*/  Wektor&);
-
+std::ostream& operator << (std::ostream&, const  Wektor&);
 Wektor operator+(Wektor, Wektor);
 Wektor operator-(Wektor, Wektor);
 RODZAJ_DANYCH operator*(Wektor, Wektor);

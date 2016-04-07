@@ -17,22 +17,28 @@ class Macierz {
         tablica[i] = Wektor();
     }
   }
+  RODZAJ_DANYCH wyznacznik();
 
-  void setDane(Wektor*);
+  // Macierz.getWektor(int ktory)
   const Wektor operator[](const unsigned int) const;
-  Wektor& operator[] (const unsigned int i) {return tablica[i];}
-   
-  const RODZAJ_DANYCH operator() (const unsigned int x, const unsigned int y) const {
-	return tablica[y][x];
-} 
+  // Macierz.setWektor(int ktory, Wektor jaki) -> macierz[1] = new Wektor()
+  Wektor& operator[] (const unsigned int);
+  //Zwraca dana, ktora jest w wektorze ?2 na pozycji ?1
+  const RODZAJ_DANYCH operator() (const unsigned int, const unsigned int) const;
 
+  Macierz kopia();
+  // Zamienia dwa wektory miejscami
+  void zamienMiejscami(const unsigned int, const unsigned int);
+  void zamien(const unsigned int, const Wektor);
+
+  Macierz transponuj();
 };
 
 
 
-//std::istream& operator >> (std::istream &Strm, Macierz &Mac);
-
-std::ostream& operator << (std::ostream&, Macierz&);
+std::istream& operator >> (std::istream&, Macierz&);
+std::ostream& operator << (std::ostream&, const Macierz&);
+Wektor operator* (const Macierz, const Wektor);
 
 
 #endif

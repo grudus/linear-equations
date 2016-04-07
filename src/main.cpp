@@ -7,57 +7,21 @@
 
 using namespace std;
 
-/*
- * Tu definiujemy pozostale funkcje.
- * Lepiej jednak stworzyc dodatkowy modul
- * i tam je umiescic. Ten przyklad pokazuje
- * jedynie absolutne minimum.
- */
-
 
 int main()
 {
-  cout << endl << " Start programu " << endl << endl;
-  //UkladRownanLiniowych   UklRown;   // To tylko przykladowe definicje zmiennej
-  Wektor w1, w2, w3;
-  Macierz macierz;
-  /*Wektor tab[ROZMIAR];
-  int i;
-  cout << "Podaj " << ROZMIAR << " danych do 1. wektora (oddziel spacja!): " << endl;
-  cin >> w1;
-  cout << "Podaj " << ROZMIAR << " danych do 2. wektora (oddziel spacja!): " << endl;
-  cin >> w2;
+  UkladRownanLiniowych ukladRownanLiniowych;
 
-  cout << w1 << endl;
-  cout << w2 << endl;
+  cout << endl << " Start programu " << endl;
+  cout << "\n Wczytanie ukladu rownan\n" << endl;
 
-  w3 = w1 + w2;
-  cout << "Dodane: " << w3 << endl;
+  cin >> ukladRownanLiniowych;
+  cout << ukladRownanLiniowych << endl;
 
-  w3 = w1 - w2;
-  cout << "Odjete: " << w3 << endl;
+  ukladRownanLiniowych.oblicz();
+  ukladRownanLiniowych.wyswietlWyniki();
 
-  w3 = w1 * 4.3;
-  cout << "Pomnozone przez 4.3: " << w3 << endl;
-
-  w3 = w1 / 4.3;
-  cout << "Podzielone przez 4,3: " << w3 << endl;
-
-
-  cout << "Iloczyn skalarny: " << (w1 * w2) << endl; */
-
-// _____________________________________________________
-  cout << "\nWCZYTANIE MACIERZY############" << endl;
-
-  for (int i = 0; i < ROZMIAR; i++) {
-      cout << "Podaj " << ROZMIAR << " danych do " << i << ". wektora (oddziel spacja!): " << endl;
-      cin >> macierz[i];
-  }
-
-  cout << macierz << endl;
-	cout << macierz(1, 2) << endl;
-
-
-
+  cout << "Wektor bledu to " << ukladRownanLiniowych.policzBlad() << endl;
+  cout << "Jego dlugosc to " << ukladRownanLiniowych.dlugoscWektoraBledu() << endl;
 
 }
