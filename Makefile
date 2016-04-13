@@ -6,9 +6,9 @@ CPPFLAGS= -c -g -Iinc -Wall -pedantic
 __start__: uklad_rownan
 	./uklad_rownan
 
-uklad_rownan: obj/main.o obj/UkladRownanLiniowych.o obj/Macierz.o obj/Wektor.o
+uklad_rownan: obj/main.o obj/UkladRownanLiniowych.o obj/Macierz.o obj/Wektor.o obj/LZespolone.o
 	g++ -Wall -pedantic -o uklad_rownan obj/main.o obj/Wektor.o\
-                                   obj/Macierz.o obj/UkladRownanLiniowych.o
+                                   obj/Macierz.o obj/UkladRownanLiniowych.o obj/LZespolone.o
 
 obj/main.o: src/main.cpp inc/UkladRownanLiniowych.hh inc/Macierz.hh inc/Wektor.hh\
         inc/rozmiar.h
@@ -22,6 +22,9 @@ obj/Macierz.o: src/Macierz.cpp inc/Macierz.hh
 
 obj/Wektor.o: src/Wektor.cpp inc/Wektor.hh inc/rozmiar.h
 	g++ ${CPPFLAGS} -o obj/Wektor.o src/Wektor.cpp
+
+obj/LZespolone.o: src/LZespolone.cpp inc/LZespolone.hh 
+	g++ ${CPPFLAGS} -o obj/LZespolone.o src/LZespolone.cpp
 
 clean:
 	rm -f obj/*.o uklad_rownan
