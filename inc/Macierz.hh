@@ -41,6 +41,7 @@ class Macierz {
 
     */
   private: Wektor tablica[ROZMIAR];
+  unsigned int rozmiar;
 
   public:
     /**
@@ -51,11 +52,22 @@ class Macierz {
 
     */
   Macierz() {
-    int i;
-    for (i = 0; i < ROZMIAR; i++) {
-        tablica[i] = Wektor();
+    unsigned int i;
+    rozmiar = ROZMIAR;
+    for (i = 0; i < rozmiar; i++) {
+        tablica[i] = Wektor(ROZMIAR);
     }
   }
+
+    Macierz(unsigned int rozm) {
+    unsigned int i;
+    rozmiar = rozm;
+    for (i = 0; i < rozmiar; i++) {
+        tablica[i] = Wektor(rozm);
+    }
+  }
+
+  unsigned int getRozmiar() const {return rozmiar;}
 
   /**
 

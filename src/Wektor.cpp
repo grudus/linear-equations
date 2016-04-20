@@ -7,7 +7,7 @@ void Wektor::zamienMiejscami(const unsigned int i, const unsigned int j) {
 }
 
 const RODZAJ_DANYCH Wektor::operator[](const unsigned int i) const {
-    if (i > ROZMIAR-1) {
+    if (i > rozmiar-1) {
         std::cerr << "\n###IndexOutOfBoundsException\n" << std::endl;
         return 0;
     }
@@ -15,7 +15,7 @@ const RODZAJ_DANYCH Wektor::operator[](const unsigned int i) const {
 }
 
 RODZAJ_DANYCH& Wektor::operator[] (const unsigned int i) {
-    if (i > ROZMIAR-1) {
+    if (i > rozmiar-1) {
         std::cerr << "\n###IndexOutOfBoundsException\n" << std::endl;
         return dane[0];
     }
@@ -24,51 +24,51 @@ RODZAJ_DANYCH& Wektor::operator[] (const unsigned int i) {
 
 
 Wektor Wektor::dodaj(const Wektor wektor) {
-    Wektor koncowy;
-    int i;
-    for (i = 0; i < ROZMIAR; i++) koncowy[i] = dane[i] + wektor[i];
+    Wektor koncowy(rozmiar);
+    unsigned int i;
+    for (i = 0; i < rozmiar; i++) koncowy[i] = dane[i] + wektor[i];
     return koncowy;
 }
 
 Wektor Wektor::odejmij(const Wektor wektor) {
-    Wektor koncowy;
-    int i;
-    for (i = 0; i < ROZMIAR; i++) koncowy[i] = dane[i] - wektor[i];
+    Wektor koncowy(rozmiar);
+    unsigned int i;
+    for (i = 0; i < rozmiar; i++) koncowy[i] = dane[i] - wektor[i];
     return koncowy;
 }
 
 Wektor Wektor::pomnoz(const RODZAJ_DANYCH d) {
-    Wektor koncowy;
-    int i;
-    for (i = 0; i < ROZMIAR; i++) koncowy[i] = dane[i] * d;
+    Wektor koncowy(rozmiar);
+    unsigned int i;
+    for (i = 0; i < rozmiar; i++) koncowy[i] = dane[i] * d;
     return koncowy;
 }
 
 Wektor Wektor::podziel(const RODZAJ_DANYCH d) {
-    Wektor koncowy;
-    int i;
+    Wektor koncowy(rozmiar);
+    unsigned int i;
 
     if (d == 0) {
         std::cerr << "\n###ArithmeticException\n" << std::endl;
         return koncowy;
     }
-    for (i = 0; i < ROZMIAR; i++) koncowy[i] = dane[i] / d;
+    for (i = 0; i < rozmiar; i++) koncowy[i] = dane[i] / d;
     return koncowy;
 }
 
 RODZAJ_DANYCH Wektor::iloczynSkalarny(const Wektor w) {
     RODZAJ_DANYCH iloczyn = 0;
-    int i;
-    for (i = 0; i < ROZMIAR; i++) {
+    unsigned int i;
+    for (i = 0; i < rozmiar; i++) {
         iloczyn += dane[i] * w[i];
     }
     return iloczyn;
 }
 
 Wektor Wektor::kopia() {
-    Wektor doZwrotu;
-    int i;
-    for (i = 0; i < ROZMIAR; i++) {
+    Wektor doZwrotu(rozmiar);
+    unsigned int i;
+    for (i = 0; i < rozmiar; i++) {
         doZwrotu[i] = dane[i];
     }
     return doZwrotu;
@@ -76,20 +76,20 @@ Wektor Wektor::kopia() {
 
 
 std::istream& operator >> (std::istream& stream, Wektor& wek) {
-    int i;
-    for (i = 0; i < ROZMIAR; i++) {
+    unsigned int i;
+    for (i = 0; i < wek.getRozmiar(); i++) {
         stream >> wek[i];
     }
     return stream;
  }
 
 std::ostream& operator << (std::ostream& stream, const Wektor& wek) {
-    int i;
+    unsigned int i;
     stream << "[";
-    for (i = 0; i < ROZMIAR; i++) {
-        stream << wek[i] << (i < ROZMIAR-1 ? ", " : "]");
+    for (i = 0; i < wek.getRozmiar(); i++) {
+        stream << wek[i] << (i < wek.getRozmiar()-1 ? ", " : "]");
     }
-    if (i != ROZMIAR) {
+    if (i != wek.getRozmiar()) {
         std::cerr << "\n###WrongNumberOfArgumentsException\n";
     }
     return stream;

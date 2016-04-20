@@ -11,20 +11,21 @@ Wektor& UkladRownanLiniowych::getWektorWyrazowWolnych() {return wektorWyrazowWol
 Wektor UkladRownanLiniowych::oblicz() {
     RODZAJ_DANYCH wyznacznikGlowny = macierzWspolczynnikow.wyznacznik();
     RODZAJ_DANYCH wyznacznikPomocniczy;
-    Macierz kopia;
-    int i;
-    for (i = 0; i < ROZMIAR; i++) {
+    Macierz kopia(rozmiar);
+    unsigned int i;
+    for (i = 0; i < rozmiar; i++) {
         kopia = macierzWspolczynnikow.kopia();
         kopia.zamien(i, wektorWyrazowWolnych);
         wyznacznikPomocniczy = kopia.wyznacznik();
         if (wyznacznikGlowny == 0) {
             if (wyznacznikPomocniczy == 0) {
+                std::cerr << "Kazda liczba spelnia rownanie" << std::endl;
                 wyniki[i] = 666.666;
                 continue;
             }
             else {
                 std::cerr << "\n####UnhandledException: Brak miejsc zerowych\n";
-                return *(new Wektor());
+                return *(new Wektor(rozmiar));
             }
         }
         wyniki[i] = wyznacznikPomocniczy/wyznacznikGlowny;
@@ -44,8 +45,8 @@ RODZAJ_DANYCH UkladRownanLiniowych::dlugoscWektoraBledu() {
 }
 
 void UkladRownanLiniowych::wyswietlWyniki() {
-    int i;
-    for (i = 0; i < ROZMIAR; i++) {
+    unsigned int i;
+    for (i = 0; i < rozmiar; i++) {
         std::cout << "x" << i+1 << " = " << wyniki[i] << std::endl;
     }
     std::cout << std::endl;
@@ -61,10 +62,10 @@ std::istream& operator >> (std::istream& stream, UkladRownanLiniowych& uklad) {
 
 std::ostream& operator << (std::ostream& stream, UkladRownanLiniowych& uklad) {
     Macierz transponowana = uklad.getMacierzWspolczynnikow().transponuj();
-    int i;
-    for (i = 0; i < ROZMIAR; i++) {
+    unsigned int i;
+    for (i = 0; i < uklad.getRozmiar(); i++) {
         stream << transponowana[i];
-        stream << " |x" << i+1 << (i == ROZMIAR/2 ? "| = " : "|   ") << '|' << uklad.getWektorWyrazowWolnych()[i] << '|'<< std::endl;
+        stream << " |x" << i+1 << (i == uklad.getRozmiar()/2 ? "| = " : "|   ") << '|' << uklad.getWektorWyrazowWolnych()[i] << '|'<< std::endl;
     }
     return stream;
 }

@@ -35,6 +35,7 @@ class LZespolona {
         w pliku rozmiar.h
     */
     private: RODZAJ_DANYCH _re, _im;
+    unsigned int rozmiar;
 
     public:
         /**

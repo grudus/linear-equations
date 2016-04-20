@@ -24,6 +24,7 @@
  */
 class UkladRownanLiniowych {
 private:
+    unsigned int rozmiar;
     /**
         @brief Macierz wspolczynnikow
 
@@ -56,6 +57,22 @@ private:
     RODZAJ_DANYCH dlogoscWektoraBledu;
 
   public:
+      UkladRownanLiniowych() {rozmiar = ROZMIAR;}
+
+      UkladRownanLiniowych(unsigned int rozm) {
+          rozmiar = rozm;
+          wektorBledu = Wektor(rozmiar);
+          macierzWspolczynnikow = Macierz(rozmiar);
+          wektorWyrazowWolnych = Wektor(rozmiar);
+          wyniki = Wektor(rozmiar);
+
+          std::cout << "Rozmiar ukladu to " << rozmiar << "\n";
+          std::cout << "Rozmiar wektora to " << wektorWyrazowWolnych.getRozmiar() << "\n";
+          std::cout << "Rozmiar macierzy to " << macierzWspolczynnikow.getRozmiar() << "\n";
+          }
+
+          unsigned int getRozmiar() const {return rozmiar;}
+
       /**
         @brief Setter dla macierzy wspolczynnikow
 

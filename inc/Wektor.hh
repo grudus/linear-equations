@@ -26,18 +26,26 @@ class Wektor {
         Statyczna tablica przechowywujaca liczby
     */
   private: RODZAJ_DANYCH dane[ROZMIAR];
+  unsigned int rozmiar;
   public:
   /**
     @brief Konstruktor domyslny
 
     Inicjalizuje wszystkie liczby zerami.
    */
+
    Wektor() {
         int i;
+        rozmiar = ROZMIAR;
         for (i = 0; i < ROZMIAR; i++) dane[i] = 0;
    }
+   Wektor(unsigned int rozm) {
+        unsigned int i;
+        rozmiar = rozm;
+        for (i = 0; i < rozmiar; i++) dane[i] = 0;
+   }
 
-
+    unsigned int getRozmiar() const {return rozmiar;}
    /**
     @brief Dodawanie dwoch wektorow
 

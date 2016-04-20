@@ -2,18 +2,18 @@
 
 
 RODZAJ_DANYCH Macierz::wyznacznik()  {
-    int i, x, j;
+    unsigned int i, x, j;
     Macierz macierz = kopia();
     RODZAJ_DANYCH wyznacznik = 1;
     RODZAJ_DANYCH pierwszaPierwsza, pierwsza;
     bool moznaIscDalej = true;
 
 
-    for (x = 0; x < ROZMIAR-1; x++) {
+    for (x = 0; x < rozmiar-1; x++) {
         pierwszaPierwsza = macierz(x, x);
         j = x;
         while (pierwszaPierwsza == 0) {
-            if (j == ROZMIAR) {
+            if (j == rozmiar) {
                 moznaIscDalej = false;
                 break;
             }
@@ -22,7 +22,7 @@ RODZAJ_DANYCH Macierz::wyznacznik()  {
             pierwszaPierwsza = macierz(x, x);
         }
         if (moznaIscDalej) {
-            for (i = x+1; i < ROZMIAR; i++) {
+            for (i = x+1; i < rozmiar; i++) {
                 pierwsza = macierz(x, i);
                 macierz[i] = macierz[i] - (macierz[x]*(pierwsza/pierwszaPierwsza));
             }
@@ -31,7 +31,7 @@ RODZAJ_DANYCH Macierz::wyznacznik()  {
 
     }
 
-    for (i = 0; i < ROZMIAR; i++) wyznacznik *= macierz(i, i);
+    for (i = 0; i < rozmiar; i++) wyznacznik *= macierz(i, i);
     return wyznacznik;
   }
 
@@ -39,19 +39,19 @@ RODZAJ_DANYCH Macierz::wyznacznik()  {
 
 
 Macierz Macierz::kopia() {
-    Macierz doZwrotu;
-    int i;
-    for (i = 0; i < ROZMIAR; i++) {
+    Macierz doZwrotu(rozmiar);
+    unsigned int i;
+    for (i = 0; i < rozmiar; i++) {
         doZwrotu[i] = tablica[i];
     }
     return doZwrotu;
 }
 
 Macierz Macierz::transponuj() {
-    Macierz transponowana;
-    int i, j;
-    for (i = 0; i < ROZMIAR; i++) {
-        for (j = 0; j < ROZMIAR; j++) {
+    Macierz transponowana(rozmiar);
+    unsigned int i, j;
+    for (i = 0; i < rozmiar; i++) {
+        for (j = 0; j < rozmiar; j++) {
             transponowana[j][i] = tablica[i][j];
         }
     }
@@ -70,9 +70,9 @@ void Macierz::zamien(const unsigned int i, const Wektor w) {
 
 
 const Wektor Macierz::operator[](const unsigned int i) const {
-    if (i > ROZMIAR-1) {
+    if (i > rozmiar-1) {
         std::cerr << "\n###IndexOutOfBoundsException\n" << std::endl;
-        return Wektor();
+        return Wektor(rozmiar);
     }
     return tablica[i];
 }
@@ -86,9 +86,9 @@ Wektor& Macierz::operator[] (const unsigned int i) {
 }
 
 Wektor operator*(const Macierz macierz, const Wektor wektor) {
-    Wektor pomnozona;
-    int i;
-    for (i = 0; i < ROZMIAR; i++) {
+    Wektor pomnozona(macierz.getRozmiar());
+    unsigned int i;
+    for (i = 0; i < macierz.getRozmiar(); i++) {
         pomnozona[i] = macierz[i] * wektor;
     }
     return pomnozona;
@@ -97,8 +97,8 @@ Wektor operator*(const Macierz macierz, const Wektor wektor) {
 
 std::ostream& operator << (std::ostream& stream, const Macierz& macierz) {
     unsigned int j;
-    Wektor wektor;
-    for (j = 0; j < ROZMIAR; j++) {
+    Wektor wektor(macierz.getRozmiar());
+    for (j = 0; j < macierz.getRozmiar(); j++) {
         wektor = macierz[j];
         stream << wektor <<std::endl;
     }
@@ -106,8 +106,8 @@ std::ostream& operator << (std::ostream& stream, const Macierz& macierz) {
 }
 
 std::istream& operator >> (std::istream& stream, Macierz& macierz) {
-    int i;
-    for (i = 0; i < ROZMIAR; i++) {
+    unsigned int i;
+    for (i = 0; i < macierz.getRozmiar(); i++) {
         stream >> macierz[i];
     }
     return stream;

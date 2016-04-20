@@ -11,11 +11,18 @@ using namespace std;
 
 int main()
 {
-    /*
+
   UkladRownanLiniowych ukladRownanLiniowych;
+  int rozmiar;
 
   cout << endl << " Start programu " << endl;
   cout << "\n Wczytanie ukladu rownan\n" << endl;
+
+  cout << "Podaj rozmiar\n";
+  cin >> rozmiar;
+  ukladRownanLiniowych = UkladRownanLiniowych(rozmiar);
+
+  cout << "Podaj uklad, bo rozmiar to " << rozmiar << "\n";
 
   cin >> ukladRownanLiniowych;
   cout << ukladRownanLiniowych << endl;
@@ -25,7 +32,7 @@ int main()
 
   cout << "Wektor bledu to " << ukladRownanLiniowych.policzBlad() << endl;
   cout << "Jego dlugosc to " << ukladRownanLiniowych.dlugoscWektoraBledu() << endl;
-*/
+
 /*
     int i = 0;
     while (i < 8) {
@@ -36,10 +43,10 @@ int main()
         i++;
     }
 */
-
+/*
     LZespolona l1, l2;
     cin >> l1 >> l2;
-    cout << l1*l2 << endl;
+    cout << l1*l2 << endl; */
 
     //cout << "Podales " << l3 << endl;
 
