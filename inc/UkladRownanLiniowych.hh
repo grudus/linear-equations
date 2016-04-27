@@ -66,10 +66,7 @@ private:
           wektorWyrazowWolnych = Wektor(rozmiar);
           wyniki = Wektor(rozmiar);
 
-          std::cout << "Rozmiar ukladu to " << rozmiar << "\n";
-          std::cout << "Rozmiar wektora to " << wektorWyrazowWolnych.getRozmiar() << "\n";
-          std::cout << "Rozmiar macierzy to " << macierzWspolczynnikow.getRozmiar() << "\n";
-          }
+      }
 
           unsigned int getRozmiar() const {return rozmiar;}
 
@@ -130,7 +127,7 @@ private:
 
         @return Dlugosc wektora bledu
        */
-      RODZAJ_DANYCH dlugoscWektoraBledu();
+      double  dlugoscWektoraBledu();
       /**
         @brief Wyswietlanie wyniku
 

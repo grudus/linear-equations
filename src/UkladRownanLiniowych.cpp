@@ -20,12 +20,13 @@ Wektor UkladRownanLiniowych::oblicz() {
         if (wyznacznikGlowny.isZero()) {
             if (wyznacznikPomocniczy.isZero()) {
                 std::cerr << "Kazda liczba spelnia rownanie" << std::endl;
-                wyniki[i] = *(new LZespolona(666, 666));
+                wyniki[i] = *(new LZespolona(0, 0));
                 continue;
             }
             else {
                 std::cerr << "\n####UnhandledException: Brak miejsc zerowych\n";
-                return *(new Wektor(rozmiar));
+		Wektor pusty(rozmiar);
+                return pusty;
             }
         }
         wyniki[i] = wyznacznikPomocniczy/wyznacznikGlowny;
@@ -39,9 +40,10 @@ Wektor UkladRownanLiniowych::policzBlad() {
     return wektorBledu.kopia();
 }
 
-RODZAJ_DANYCH UkladRownanLiniowych::dlugoscWektoraBledu() {
+double UkladRownanLiniowych::dlugoscWektoraBledu() {
     //return sqrt((double) (wektorBledu*wektorBledu));
-    return wektorBledu*wektorBledu;
+  RODZAJ_DANYCH bl = wektorBledu * wektorBledu;
+  return bl.modul();
 }
 
 void UkladRownanLiniowych::wyswietlWyniki() {

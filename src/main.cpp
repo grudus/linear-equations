@@ -3,21 +3,49 @@
 #include "Macierz.hh"
 #include "UkladRownanLiniowych.hh"
 #include "LZespolone.hh"
-
+#include <unistd.h>
 
 
 using namespace std;
 
 
-int main()
+int main(int argc, char** argv)
 {
+  
+  cout << argv[0] << " nazwa programu" << endl;
+  if (argc < 2) {
+    cerr << "###NiePodanoEnaException\n";
+    return -1;
+  }
+  int rozm = -1;
+  int c;
+  while ( (c = getopt(argc, argv, "n:")) != -1) {
+    switch (c) {
+    case 'n':
+      if (optarg) {
+	cout << "Podales ladnie " << optarg << "\n";
+	rozm = atoi(optarg);
+      }
+      else {cerr << "Nie podales!" << endl; }
+      
+      break;
+    default: break;
+    }
 
-  UkladRownanLiniowych ukladRownanLiniowych;
+
+  }     
+  if (rozm == -1) {
+    cerr << "###NiePodanoPoEnieException\n";
+    return -1;
+  }
+
+  cout << "Rozmiar to " << rozm << endl;
+  
+
+  UkladRownanLiniowych ukladRownanLiniowych(rozm);
 
   cout << endl << " Start programu " << endl;
   cout << "\n Wczytanie ukladu rownan\n" << endl;
-
-  ukladRownanLiniowych = UkladRownanLiniowych();
 
   cin >> ukladRownanLiniowych;
   cout << ukladRownanLiniowych << endl;

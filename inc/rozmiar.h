@@ -3,7 +3,7 @@
 
 #include "LZespolone.hh"
 
-#define ROZMIAR 3
+#define ROZMIAR 4
 #define RODZAJ_DANYCH LZespolona
 
 #endif

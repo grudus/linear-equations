@@ -13,8 +13,8 @@ RODZAJ_DANYCH Macierz::wyznacznik()  {
         pierwszaPierwsza = macierz(x, x);
         j = x;
         while (pierwszaPierwsza.isZero()) {
-            std::cerr << "Pierwsza pierwsza jest zero\n";
-            if (j == rozmiar) {
+	  std::cerr << "ZERO ZERO\n";  
+	  if (j == rozmiar) {
                 moznaIscDalej = false;
                 break;
             }

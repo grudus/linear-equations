@@ -18,7 +18,7 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
-
+#include <cmath>
 
 
 /**
@@ -135,7 +135,14 @@ class LZespolona {
         LZespolona operator/ (const LZespolona&) const;
         LZespolona operator* (const int) const;
         bool isZero() const {return _im == 0 && _re == 0;}
+  double modul() {return sqrt(_re*_re + _im*_im); }
 
+
+  LZespolona operator- ( double d) {
+    LZespolona doZwrotu(_re - d, _im);
+    return doZwrotu;
+
+  }
 };
 
 /**

@@ -35,9 +35,14 @@ LZespolona LZespolona::operator*(const int i) const {
 }
 
 LZespolona LZespolona::operator/ (const LZespolona& lz) const {
-    LZespolona doZwrotu;
-    doZwrotu.Re() = ( _re * lz.Re() + _im * lz.Im() ) / (lz.Re()*lz.Re() - lz.Im()*lz.Im());
-    doZwrotu.Im() = (_im * lz.Re() - _re * lz.Im() ) / ((lz.Re()*lz.Re() - lz.Im()*lz.Im()));
+  const double dzielnik = (lz.Re()*lz.Re() + lz.Im()*lz.Im());
+  LZespolona doZwrotu; 
+  if (dzielnik == 0) {
+    std::cerr << "DZIELENIE PRZEZ 0\n";
+    return doZwrotu;
+  }
+    doZwrotu.Re() = ( _re * lz.Re() + _im * lz.Im() ) / dzielnik;
+    doZwrotu.Im() = (_im * lz.Re() - _re * lz.Im() ) / dzielnik;
     return doZwrotu;
 }
 
