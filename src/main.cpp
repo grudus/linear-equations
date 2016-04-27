@@ -13,16 +13,11 @@ int main()
 {
 
   UkladRownanLiniowych ukladRownanLiniowych;
-  int rozmiar;
 
   cout << endl << " Start programu " << endl;
   cout << "\n Wczytanie ukladu rownan\n" << endl;
 
-  cout << "Podaj rozmiar\n";
-  cin >> rozmiar;
-  ukladRownanLiniowych = UkladRownanLiniowych(rozmiar);
-
-  cout << "Podaj uklad, bo rozmiar to " << rozmiar << "\n";
+  ukladRownanLiniowych = UkladRownanLiniowych();
 
   cin >> ukladRownanLiniowych;
   cout << ukladRownanLiniowych << endl;
@@ -43,11 +38,17 @@ int main()
         i++;
     }
 */
-/*
-    LZespolona l1, l2;
+
+    /*LZespolona l1, l2;
+    cout << "Podaj liczbe zespolona:\n";
     cin >> l1 >> l2;
-    cout << l1*l2 << endl; */
+    cout << "Podales " << l1 << " i " << l2 << endl;
+
+    cout << "suma to " << l1+l2 << endl;
+    cout << "Roznica to " << l1-l2 << endl;
+    cout << "Iloczyn to " << l1 * l2 << endl;
+    cout << "Iloraz to " << l1/l2 << endl;
 
     //cout << "Podales " << l3 << endl;
-
+*/
 }

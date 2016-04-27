@@ -1,9 +1,9 @@
 #include "LZespolone.hh"
 
-RODZAJ_DANYCH& LZespolona::Re() {return _re;}
-RODZAJ_DANYCH LZespolona::Re() const {return _re;}
-RODZAJ_DANYCH& LZespolona::Im() {return _im;}
-RODZAJ_DANYCH LZespolona::Im() const {return _im;}
+double& LZespolona::Re() {return _re;}
+double LZespolona::Re() const {return _re;}
+double& LZespolona::Im() {return _im;}
+double LZespolona::Im() const {return _im;}
 
 
 LZespolona LZespolona::operator+ (const LZespolona& lz) const {
@@ -23,11 +23,24 @@ LZespolona LZespolona::operator- (const LZespolona& lz) const {
 LZespolona LZespolona::operator* (const LZespolona& lz) const {
     LZespolona doZwrotu;
     doZwrotu.Re() = _re * lz.Re() - _im * lz.Im();
-    std::cout << "_im: " << _im << " lz.Re(): " << lz.Re() << " _re: " << _re << " lz.Im(): " << lz.Im() << std::endl;
-    std::cout << "_im * lz.Re(): " << _im*lz.Re() << " _re*lz.Im() " << _re * lz.Im() << std::endl;
     doZwrotu.Im() = _im * lz.Re() + _re * lz.Im();
     return doZwrotu;
 }
+
+LZespolona LZespolona::operator*(const int i) const {
+    LZespolona doZwrotu;
+    doZwrotu.Re() = _re * i;
+    doZwrotu.Im() = _im * i;
+    return doZwrotu;
+}
+
+LZespolona LZespolona::operator/ (const LZespolona& lz) const {
+    LZespolona doZwrotu;
+    doZwrotu.Re() = ( _re * lz.Re() + _im * lz.Im() ) / (lz.Re()*lz.Re() - lz.Im()*lz.Im());
+    doZwrotu.Im() = (_im * lz.Re() - _re * lz.Im() ) / ((lz.Re()*lz.Re() - lz.Im()*lz.Im()));
+    return doZwrotu;
+}
+
 
 std::ostream& operator<< (std::ostream& stream, const LZespolona& lz) {
     stream << '{';

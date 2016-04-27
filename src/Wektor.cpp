@@ -1,4 +1,5 @@
 #include "Wektor.hh"
+#include "LZespolone.hh"
 
 void Wektor::zamienMiejscami(const unsigned int i, const unsigned int j) {
     RODZAJ_DANYCH temp = dane[i];
@@ -9,7 +10,7 @@ void Wektor::zamienMiejscami(const unsigned int i, const unsigned int j) {
 const RODZAJ_DANYCH Wektor::operator[](const unsigned int i) const {
     if (i > rozmiar-1) {
         std::cerr << "\n###IndexOutOfBoundsException\n" << std::endl;
-        return 0;
+        return *(new LZespolona);
     }
     else return dane[i];
 }
@@ -48,7 +49,7 @@ Wektor Wektor::podziel(const RODZAJ_DANYCH d) {
     Wektor koncowy(rozmiar);
     unsigned int i;
 
-    if (d == 0) {
+    if (d.isZero()) {
         std::cerr << "\n###ArithmeticException\n" << std::endl;
         return koncowy;
     }
@@ -57,10 +58,10 @@ Wektor Wektor::podziel(const RODZAJ_DANYCH d) {
 }
 
 RODZAJ_DANYCH Wektor::iloczynSkalarny(const Wektor w) {
-    RODZAJ_DANYCH iloczyn = 0;
+    RODZAJ_DANYCH iloczyn;
     unsigned int i;
     for (i = 0; i < rozmiar; i++) {
-        iloczyn += dane[i] * w[i];
+        iloczyn = iloczyn + dane[i] * w[i];
     }
     return iloczyn;
 }

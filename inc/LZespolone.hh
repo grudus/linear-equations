@@ -34,7 +34,7 @@ class LZespolona {
         liczby zespolonej. Sa one typu <code>RODZAJ_DANYCH</code>, a jest on okreslony
         w pliku rozmiar.h
     */
-    private: RODZAJ_DANYCH _re, _im;
+    private: double _re, _im;
     unsigned int rozmiar;
 
     public:
@@ -55,7 +55,7 @@ class LZespolona {
             @param im Czesc urojona liczby zespolonej
 
         */
-        LZespolona(RODZAJ_DANYCH re, RODZAJ_DANYCH im) {
+        LZespolona(double re, double im) {
             _re = re;
             _im = im;
         }
@@ -68,7 +68,7 @@ class LZespolona {
             @return Referencja do pola _re
 
         */
-        RODZAJ_DANYCH& Re();
+        double& Re();
         /**
             @brief Getter dla pola _re
 
@@ -78,7 +78,7 @@ class LZespolona {
 
             @return Wartosc pola _re
         */
-        RODZAJ_DANYCH Re() const;
+        double Re() const;
         /**
             @brief Setter dla pola _im
 
@@ -87,7 +87,7 @@ class LZespolona {
             @return Referencja do pola _im
 
         */
-        RODZAJ_DANYCH& Im();
+        double& Im();
             /**
             @brief Getter dla pola _im
 
@@ -97,7 +97,7 @@ class LZespolona {
 
             @return Wartosc pola _im
         */
-        RODZAJ_DANYCH Im() const;
+        double Im() const;
 
         /**
             @brief Dodawanie liczb zespolonych
@@ -132,6 +132,9 @@ class LZespolona {
             @return Calkiem nowa liczba zespolona
          */
         LZespolona operator* (const LZespolona&) const;
+        LZespolona operator/ (const LZespolona&) const;
+        LZespolona operator* (const int) const;
+        bool isZero() const {return _im == 0 && _re == 0;}
 
 };
 

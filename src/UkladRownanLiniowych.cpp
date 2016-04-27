@@ -17,10 +17,10 @@ Wektor UkladRownanLiniowych::oblicz() {
         kopia = macierzWspolczynnikow.kopia();
         kopia.zamien(i, wektorWyrazowWolnych);
         wyznacznikPomocniczy = kopia.wyznacznik();
-        if (wyznacznikGlowny == 0) {
-            if (wyznacznikPomocniczy == 0) {
+        if (wyznacznikGlowny.isZero()) {
+            if (wyznacznikPomocniczy.isZero()) {
                 std::cerr << "Kazda liczba spelnia rownanie" << std::endl;
-                wyniki[i] = 666.666;
+                wyniki[i] = *(new LZespolona(666, 666));
                 continue;
             }
             else {

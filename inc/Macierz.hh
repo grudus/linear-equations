@@ -19,6 +19,7 @@
 
 #include "rozmiar.h"
 #include "Wektor.hh"
+#include "LZespolone.hh"
 #include <iostream>
 
 

@@ -4,7 +4,7 @@
 RODZAJ_DANYCH Macierz::wyznacznik()  {
     unsigned int i, x, j;
     Macierz macierz = kopia();
-    RODZAJ_DANYCH wyznacznik = 1;
+    RODZAJ_DANYCH wyznacznik;
     RODZAJ_DANYCH pierwszaPierwsza, pierwsza;
     bool moznaIscDalej = true;
 
@@ -12,13 +12,14 @@ RODZAJ_DANYCH Macierz::wyznacznik()  {
     for (x = 0; x < rozmiar-1; x++) {
         pierwszaPierwsza = macierz(x, x);
         j = x;
-        while (pierwszaPierwsza == 0) {
+        while (pierwszaPierwsza.isZero()) {
+            std::cerr << "Pierwsza pierwsza jest zero\n";
             if (j == rozmiar) {
                 moznaIscDalej = false;
                 break;
             }
             macierz.zamienMiejscami(x, ++j);
-            wyznacznik *= -1;
+            wyznacznik = wyznacznik * -1;
             pierwszaPierwsza = macierz(x, x);
         }
         if (moznaIscDalej) {
@@ -27,11 +28,16 @@ RODZAJ_DANYCH Macierz::wyznacznik()  {
                 macierz[i] = macierz[i] - (macierz[x]*(pierwsza/pierwszaPierwsza));
             }
         }
-        else return 0;
-
+        else return *(new LZespolona());
     }
 
-    for (i = 0; i < rozmiar; i++) wyznacznik *= macierz(i, i);
+    if (moznaIscDalej) if (wyznacznik.isZero()) wyznacznik = macierz(0, 0);
+
+    for (i = 1; i < rozmiar; i++) {
+            //std::cout << macierz << "\n";
+            wyznacznik = wyznacznik * macierz(i, i);
+
+    }
     return wyznacznik;
   }
 

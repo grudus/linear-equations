@@ -37,12 +37,12 @@ class Wektor {
    Wektor() {
         int i;
         rozmiar = ROZMIAR;
-        for (i = 0; i < ROZMIAR; i++) dane[i] = 0;
+        for (i = 0; i < ROZMIAR; i++) dane[i] = *(new LZespolona);
    }
    Wektor(unsigned int rozm) {
         unsigned int i;
         rozmiar = rozm;
-        for (i = 0; i < rozmiar; i++) dane[i] = 0;
+        for (i = 0; i < rozmiar; i++) dane[i] = *(new LZespolona);
    }
 
     unsigned int getRozmiar() const {return rozmiar;}
