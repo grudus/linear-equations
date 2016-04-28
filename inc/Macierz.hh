@@ -31,6 +31,7 @@
     <code>ROZMIAR</code> zdefiniowana w pliku <code>rozmiar.h</code>
 
 */
+template <typename T>
 class Macierz {
     /**
 
@@ -41,7 +42,7 @@ class Macierz {
     @see rozmiar.h
 
     */
-  private: Wektor tablica[ROZMIAR];
+  private: Wektor<T> tablica[ROZMIAR];
   unsigned int rozmiar;
 
   public:
@@ -56,7 +57,7 @@ class Macierz {
     unsigned int i;
     rozmiar = ROZMIAR;
     for (i = 0; i < rozmiar; i++) {
-        tablica[i] = Wektor(ROZMIAR);
+        tablica[i] = Wektor<T>(ROZMIAR);
     }
   }
 
@@ -64,26 +65,75 @@ class Macierz {
     unsigned int i;
     rozmiar = rozm;
     for (i = 0; i < rozmiar; i++) {
-        tablica[i] = Wektor(rozm);
+        tablica[i] = Wektor<T>(rozm);
     }
   }
 
-  unsigned int getRozmiar() const {return rozmiar;}
+  unsigned int getRozmiar() const {
+  	return rozmiar;
+  }
+
 
   /**
-
     @brief Liczenie wyznacznika macierzy
 
     Metoda ta liczy wyznacznik danej macierzy metoda Gaussa.
     Dzieki temu mozliwe jest wyliczenie dla kazdej wielkosci macierzy
 
-    @return Wyznacznik macierzy
+    @return Wyznacznik macierzy */
+    
+    //Bedziemy dazyc do zamiany macierzy w trojkatna - wowczas wyznacznik to iloczyn przekatnych
+	T wyznacznik()  {
+		unsigned int i, x, j;
+		Macierz macierz = kopia();
+		T wyznacznik = 0;
+		T pierwszaPierwsza = 0, pierwsza = 0;
+		bool moznaIscDalej = true;
 
-  */
-  RODZAJ_DANYCH wyznacznik();
+		// Iterujemy po wszystkich wyrazach z przekatnej macierzy. Nimi bedziemy
+		// zerowac wiersze
+		for (x = 0; x < rozmiar-1; x++) {
+		    pierwszaPierwsza = macierz(x, x);
+		    j = x;
+		    //Jezeli znaleziona liczba z przekatnej jest rowna 0 - szukamy innej 
+		    //dopoki nie znajdziemy
+		    while (pierwszaPierwsza == 0) {
+		    	std::cerr << "Na przekatnej jest zero\n";
+		    	//nie znalezlismy zadnego niezerowego - koniec gry
+		  		if (j == rozmiar) {
+		            moznaIscDalej = false;
+		            break;
+		        }
+		        macierz.zamienMiejscami(x, ++j);
+		        wyznacznik = wyznacznik * -1;
+		        pierwszaPierwsza = macierz(x, x);
+		    }
+		    if (moznaIscDalej) {
+		        for (i = x+1; i < rozmiar; i++) {
+		            pierwsza = macierz(x, i);
+		            //Zerujemy wszystkie wiersza "pod" dzialajacym, zeby uzyskac macierz trojkatna
+		            macierz[i] = macierz[i] - (macierz[x]*(pierwsza/pierwszaPierwsza));
+		        }
+		    }
+		    else {
+		    	std::cout << "\n###ZerowyArgumentException\n";
+		    	T puste = 0;
+		    	//cos zwrocic trzeba, hh
+		    	return puste;
+		    }
+		}
+		//mnozymy po przekatnej, zatem przez ten krawedziowy argument i tak by trzeba bylo
+		wyznacznik = macierz(0, 0);
+
+		for (i = 1; i < rozmiar; i++) {
+		        wyznacznik = wyznacznik * macierz(i, i);
+		}
+		
+		return wyznacznik;
+  }
+
 
   /**
-
     @brief Getter dla Wektora
 
     Przeciazenie operatora <code>[]</code>.
@@ -94,10 +144,17 @@ class Macierz {
 
     @param i Index. Musi byc nieujemny i mniejszy od rozmiaru tablicy
     @return Wektor o podanym indexie. W przypadku argumentu spoza zakresu
-    Wyswietlana jest informacja o bledzie i zwracany Wektor domyslny.
-
-  */
-  const Wektor operator[](const unsigned int i) const;
+    Wyswietlana jest informacja o bledzie i zwracany Wektor domyslny. */
+    
+  const Wektor<T> operator[](const unsigned int i) const {
+		if (i > rozmiar - 1) {
+			std::cerr << "\n###IndexOutOfBoundsException\n";
+			return Wektor<T>(rozmiar);
+		}
+		return tablica[i];
+  }
+  
+  
   /**
     @brief Setter dla Wektora
 
@@ -108,10 +165,17 @@ class Macierz {
 
     @param i Index. Musi byc nieujemny i mniejszy od rozmiaru tablicy
     @return Referencja na Wektor o podanym indexie. W przypadku argumentu spoza zakresu
-    Wyswietlana jest informacja o bledzie i zwracany Wektor domyslny.
-
-  */
-  Wektor& operator[] (const unsigned int);
+    Wyswietlana jest informacja o bledzie i zwracany Wektor domyslny. */
+    
+  Wektor<T>& operator[] (const unsigned int i) {
+  		if (i > rozmiar - 1) {
+			std::cerr << "\n###IndexOutOfBoundsException\n";
+			return tablica[0];
+		}
+		return tablica[i];
+  }
+  
+  
   /**
     @brief Getter dla konkretnej liczby
 
@@ -122,10 +186,17 @@ class Macierz {
 
     @param x Index liczby przechowywanej w tablicy w obiekcie Wektor
     @param y Index wektora przechowywanego w tablicy w obiekcie Macierz
-    @return Liczba przechowywana w wektorze
-
-   */
-  const RODZAJ_DANYCH operator() (const unsigned int x, const unsigned int y) const;
+    @return Liczba przechowywana w wektorze */
+   
+  const T operator() (const unsigned int x, const unsigned int y) const {
+  		if (x > rozmiar-1 || y > rozmiar-1) {
+  			std::cerr << "\n###IndexOutOfBoundsException\n";
+  			T t = 0;
+  			return t;
+  		}
+  		return tablica[y][x];
+  }
+ 
 
   /**
     @brief Tworzenie kopii konkretnej macierzy
@@ -133,9 +204,18 @@ class Macierz {
     Metoda pomocnicza. Tworzy i zwraca nowa macierz, ktora wszystkie pola ma takie same
     jak oryginalna macierz.
 
-    @return Nowa Macierz
-   */
-  Macierz kopia();
+    @return Nowa Macierz */
+   
+	Macierz<T> kopia() {
+		Macierz<T> doZwrotu(rozmiar);
+		unsigned int i;
+		for (i = 0; i < rozmiar; i++) {
+		    doZwrotu[i] = tablica[i];
+		}
+		return doZwrotu;
+	}
+	
+	
   /**
     @brief Zamiana miejscami dwoch wektorow w tablicy
 
@@ -145,32 +225,38 @@ class Macierz {
     i zamiana nie ma miejsca.
 
     @param i Index wektora zamienianego
-    @param j Index wektora zamienianego
-   */
-  void zamienMiejscami(const unsigned int i, const unsigned int j);
-  /**
-    @brief Zamiana miejscem wektora
-
-    Metoda przyporzadkowuje elementowi o indexie i z tablicy
-    <code>tablica</code> wartosc w.
-    Nie wiem po co w ogole tego uzywam.
-
-    @param i Index wektora
-    @param w Nowy wektor
-
-  */
-  void zamien(const unsigned int i, const Wektor w);
+    @param j Index wektora zamienianego */
+    
+  void zamienMiejscami(const unsigned int i, const unsigned int j) {
+  		if (i > rozmiar-1 || j > rozmiar-1) {
+  			std::cerr << "\n###IndexOutOfBoundsException\n";
+  			return;
+  		}
+  		Wektor<T> temp = tablica[i];
+  		tablica[i] = tablica[j];
+  		tablica[j] = temp;
+  }
+  
 
   /**
     @brief Transponowanie macierzy
 
     Metoda transponuje nowa macierz i zwraca wynik tej operacji
 
-    @return Przetransponowana nowa macierz
-   */
+    @return Przetransponowana nowa macierz */
 
-  Macierz transponuj();
+	Macierz<T> transponuj() {
+		Macierz<T> transponowana(rozmiar);
+		unsigned int i, j;
+		for (i = 0; i < rozmiar; i++) {
+		    for (j = 0; j < rozmiar; j++) {
+		        transponowana[j][i] = tablica[i][j];
+		    }
+		}
+		return transponowana;
+	}
 };
+
 
 
 /**
@@ -182,9 +268,18 @@ class Macierz {
 
     @param stream Referencja na strumien wejsciowy z ktorego beda czytane dane
     @param macierz Referencja na macierz, do ktorej dane beda zapisywane
-    @return Referencja do strumienia podanego jako argument
-    */
-std::istream& operator >> (std::istream& stream, Macierz& macierz);
+    @return Referencja do strumienia podanego jako argument */
+    
+template <typename T>
+std::istream& operator >> (std::istream& stream, Macierz<T>& macierz) {
+	unsigned int i;
+    for (i = 0; i < macierz.getRozmiar(); i++) {
+        stream >> macierz[i];
+    }
+    return stream;
+}
+
+
 /**
     @brief Wypisywanie macierzy
 
@@ -194,9 +289,20 @@ std::istream& operator >> (std::istream& stream, Macierz& macierz);
 
     @param stream Referencja na strumien wyjsciowy do ktorego bedo wypisywane dane
     @param macierz Referencja na macierz, z ktorej beda dane odczytywane
-    @return Referencja do strumienia podanego jako argument
-    */
-std::ostream& operator << (std::ostream& stream, const Macierz& macierz);
+    @return Referencja do strumienia podanego jako argument */
+    
+template <typename T>
+std::ostream& operator << (std::ostream& stream, const Macierz<T>& macierz) {
+    unsigned int j;
+    Wektor<T> wektor(macierz.getRozmiar());
+    for (j = 0; j < macierz.getRozmiar(); j++) {
+        wektor = macierz[j];
+        stream << wektor <<std::endl;
+    }
+    return stream;
+}
+
+
 /**
     @brief Mnozenie macierzy przez Wektor
 
@@ -206,11 +312,17 @@ std::ostream& operator << (std::ostream& stream, const Macierz& macierz);
 
     @param macierz Macierz do przemnozenia
     @param wektor Wektor, przez ktory bedziemy mnozyc
-    @return Wektor - wynik operacji mnozenia
+    @return Wektor - wynik operacji mnozenia */
 
- */
-
-Wektor operator* (const Macierz macierz, const Wektor wektor);
+template <typename T>
+Wektor<T> operator* (const Macierz<T> macierz, const Wektor<T> wektor) {
+	Wektor<T> pomnozona(macierz.getRozmiar());
+    unsigned int i;
+    for (i = 0; i < macierz.getRozmiar(); i++) {
+        pomnozona[i] = macierz[i] * wektor;
+    }
+    return pomnozona;
+}
 
 
 #endif
